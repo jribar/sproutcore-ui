@@ -119,7 +119,7 @@ SCUI.ModalPane = SC.PalettePane.extend({
     // header
     view = this.createChildView(
       SC.View.design({
-        classNames: ['header'],
+        classNames: ['modal-header'],
         layout: { top: 0, left: 0, right: 0, height: titleBarHeight },
         mouseDown: function(evt) {
           that._titleBarClicked = YES;
