@@ -122,7 +122,7 @@ LinkIt.CanvasView = SC.CollectionView.extend({
   render: function(context, firstTime) {
     var ctx, ce, frame = this.get('frame');
     
-    if (firstTime && !SC.browser.msie) {
+    if (firstTime && !SC.browser.isIE) {
       context.push('<canvas class="base-layer" width="%@" height="%@"></canvas>'.fmt(frame.width, frame.height));
     }
 
@@ -148,7 +148,7 @@ LinkIt.CanvasView = SC.CollectionView.extend({
   },
   
   didCreateLayer: function() {
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       var frame = this.get('frame');
       var canvas = document.createElement('CANVAS');
       canvas.className = 'base-layer';

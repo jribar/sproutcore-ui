@@ -201,7 +201,7 @@ SCUI.UploadView = SC.View.extend(
     for(i=0, listLen = this.degradeList.length; i<listLen; i++){
       switch(this.degradeList[i]){
         case 'xhr':
-          if ((SC.browser.safari || SC.browser.chrome) && (this.get('requestPrototype'))) {
+          if ((SC.browser.isSafari || SC.browser.isChrome) && (this.get('requestPrototype'))) {
             handler = this._startUploadXHR.bind(this);
           }
         break;
@@ -267,7 +267,7 @@ SCUI.UploadView = SC.View.extend(
     var frame, response, win, doc;
 
     // get the json plain text from the iframe
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       var frameId = '%@%@'.fmt(this.get('layerId'), 'Frame');
       frame = document.frames(frameId);
       doc = frame.document;
@@ -290,7 +290,7 @@ SCUI.UploadView = SC.View.extend(
     change the status from BUSY to DONE.
   */
   _uploadDone: function() {
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       if (!this._firstTime) {
         SC.RunLoop.begin();
         this.set('status', SCUI.DONE);

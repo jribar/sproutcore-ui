@@ -466,7 +466,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
       // experience. With this change, clicking outside the pane will hide it (same as original behavior), 
       // however, if the user directly shifts focus to another text field, then the pane 
       // won't be removed. This behavior is still buggy but less buggy than it was before.
-      if (!SC.browser.msie) {
+      if (!SC.browser.isIE) {
         this.hideList();
       }
     }

@@ -39,10 +39,10 @@ SCUI.ColorPicker = SC.View.extend(
     // this is where colorpickers created
     
     // HACK: [MB] - Hack to get the color picker working at all times in IE by creating a fresh version everytime
-    if(!this._cp || SC.browser.msie){
+    if(!this._cp || SC.browser.isIE){
       
       // do some cleanup first if it's IE, then create the color picker
-      if (this._cp && SC.browser.msie) {
+      if (this._cp && SC.browser.isIE) {
         this._cp.remove();
       }
       

@@ -24,7 +24,7 @@ LinkIt.DragLink = SC.View.extend( LinkIt.Link,
   
   render: function(context, firstTime) {
     if (firstTime){
-      if (!SC.browser.msie) {
+      if (!SC.browser.isIE) {
         context.push('<canvas>test</canvas>');
       }
     }
@@ -76,7 +76,7 @@ LinkIt.DragLink = SC.View.extend( LinkIt.Link,
   },
 
   didCreateLayer: function(){
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       var frame = this.get('frame');
       var canvas = document.createElement('CANVAS');
       canvas.width = frame.width;

@@ -370,7 +370,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
         var el = doc.createElement("style");
         el.type = "text/css";
         head.appendChild(el);
-        if (SC.browser.msie) {
+        if (SC.browser.isIE) {
           el.styleSheet.cssText = styleSheetCSS;
         } else {
           el.innerHTML = styleSheetCSS;
@@ -385,7 +385,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     var docBody = doc.body;
     docBody.contentEditable = true;
 
-    if (!SC.browser.msie) {
+    if (!SC.browser.isIE) {
       doc.execCommand('styleWithCSS', false, false);
     }
 
@@ -565,7 +565,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     // [JS] control-A on windows/linux, or cmd-a on mac, selects all automatically, and should update selection
     // jquery hack send meta AND ctrl if ctrl was pressed, which means we'd get triggered on ctrl even if select-all didn't happen, so look for meta without control
     // complaint reported in 2008, but it is still there in jquery now, and in sproutcore's corequery base
-    if (event.keyCode === 65 && ((SC.browser.mac && event.metaKey && !event.ctrlKey) || (!SC.browser.mac && event.ctrlKey))) {
+    if (event.keyCode === 65 && ((SC.browser.isMac && event.metaKey && !event.ctrlKey) || (!SC.browser.isMac && event.ctrlKey))) {
       this.querySelection();
     }
 
@@ -600,7 +600,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
       this._tabKeyDown(event);
     }
 
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       // IE workaround - return key might do the wrong thing
       var element = this._getSelectedElement();
 
@@ -687,7 +687,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     if (SC.none(selection)) {
       return null;
     }
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       range = selection.createRange();
     } else {
       // *should* never be 0 if there's a selection active
@@ -761,7 +761,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     if (!doc) return NO;
 
     if (val !== undefined) {
-      if (SC.browser.msie) {
+      if (SC.browser.isIE) {
         this._alignContentForIE(justify);
       } else {
         doc.execCommand(justify, false, val);
@@ -830,7 +830,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     if (!doc) return NO;
 
     if (val !== undefined) {
-      if (SC.browser.msie && val === YES) {
+      if (SC.browser.isIE && val === YES) {
         this._createListForIE('ol');
       } else {
         if (doc.execCommand('insertorderedlist', false, val)) {
@@ -848,7 +848,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     if (!doc) return NO;
 
     if (val !== undefined) {
-      if (SC.browser.msie && val === YES) {
+      if (SC.browser.isIE && val === YES) {
         this._createListForIE('ul');
       } else {
         if (doc.execCommand('insertunorderedlist', false, val)) {
@@ -908,7 +908,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
       }
     }
 
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       return doc.queryCommandState('indent');
     } else {
       /*
@@ -934,7 +934,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
       }
     }
 
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       return doc.queryCommandState('outdent');
     } else {
       /*
@@ -1044,7 +1044,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     var doc = this._document;
     if (!doc) return ret;
 
-    if (!SC.browser.msie) {
+    if (!SC.browser.isIE) {
       doc.execCommand('styleWithCSS', false, true);
     }
 
@@ -1064,12 +1064,12 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     } else {
       var color = this._queryCommandValue(doc, 'forecolor');
       if (color) {
-        this._last_font_color_cache = SC.browser.msie ? this.convertBgrToHex(color) : SC.parseColor(color);
+        this._last_font_color_cache = SC.browser.isIE ? this.convertBgrToHex(color) : SC.parseColor(color);
         ret = this._last_font_color_cache;
       }
     }
 
-    if (!SC.browser.msie) {
+    if (!SC.browser.isIE) {
       doc.execCommand('styleWithCSS', false, false);
     }
 
@@ -1083,8 +1083,8 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     var doc = this._document;
     if (!doc) return ret;
 
-    var prop = SC.browser.msie ? 'backcolor': 'hilitecolor';
-    if (!SC.browser.msie) {
+    var prop = SC.browser.isIE ? 'backcolor': 'hilitecolor';
+    if (!SC.browser.isIE) {
       doc.execCommand('styleWithCSS', false, true);
     }
 
@@ -1109,7 +1109,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     } else {
       var color = this._queryCommandValue(doc, prop);
       if (color !== 'transparent') {
-        color = SC.browser.msie ? this.convertBgrToHex(color) : SC.parseColor(color);
+        color = SC.browser.isIE ? this.convertBgrToHex(color) : SC.parseColor(color);
         if (color) {
           this._last_background_color_cache = color;
           ret = this._last_background_color_cache;
@@ -1117,7 +1117,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
       }
     }
     
-    if (!SC.browser.msie) {
+    if (!SC.browser.isIE) {
       doc.execCommand('styleWithCSS', false, false);
     }
 
@@ -1383,7 +1383,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     var doc = this._document;
     if (!doc) return NO;
 
-    if (SC.browser.mozilla || SC.browser.chrome) {
+    if (SC.browser.isMozilla || SC.browser.isWebkit) {
       // issue - it should unlink, but it only unlinks correctly if you selected the WHOLE link
       return this._removeLinkCompletely(doc);
     }
@@ -1426,7 +1426,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     if (!doc) return NO;
     if (SC.none(value) || value === '') return NO;
 
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       if (!this.get('isFocused')) {
         this.focus();
       }
@@ -1493,7 +1493,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     context = context.join();
 
     var html;
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       html = '<span contenteditable=false unselectable="on">' + context + '</span>';
     } else {
       html = '<span contenteditable=false style="-moz-user-select: all; -webkit-user-select: all;">' + context + '</span>';
@@ -1666,7 +1666,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
       Workaround set the border to 1, then to 0, and it goes away.
 
       */
-      if (SC.browser.msie) {
+      if (SC.browser.isIE) {
         // [JS] I'm concerned that this doesn't do "the right thing", but we're not focusing on IE in great detail yet.
         if (range.length === 1) node = range.item();
         if (range.parentElement) node = range.parentElement();
@@ -1757,7 +1757,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     if (!doc) return;
 
     var width, height;
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       width = doc.body.scrollWidth;
       height = doc.body.scrollHeight;
     } else {
@@ -1793,7 +1793,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
   /** @private */
   _getFrame: function() {
     var frame;
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       frame = document.frames(this.get('frameName'));
     } else {
       frame = this.$('iframe').firstObject();
@@ -1809,7 +1809,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     if (SC.none(frame)) return null;
 
     var editor;
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       editor = frame.document;
     } else {
       editor = frame.contentDocument;
@@ -1825,7 +1825,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     if (SC.none(frame)) return null;
 
     var selection;
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       selection = this._getDocument().selection;
     } else if(frame.contentWindow){
       selection = frame.contentWindow.getSelection();
@@ -1861,7 +1861,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
     var doc = this._document;
 
     if (range) {
-      if (SC.browser.msie) {
+      if (SC.browser.isIE) {
         elm = range.item ? range.item(0) : range.parentElement();
       } else {
         if (sel.anchorNode && (sel.anchorNode.nodeType === 3)) {
@@ -1901,7 +1901,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
   saveSelection: function() {
     this.set('selectionSaved', YES);
 
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       var win = this._getFrame().window;
       var doc = win.document;
       var sel = win.getSelection ? win.getSelection() : doc.selection;
@@ -1933,7 +1933,7 @@ SCUI.ContentEditableView = SC.WebView.extend(SC.Editable,
   restoreSelection: function() {
     this.set('selectionSaved', NO);
 
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       var win = this._getFrame().window;
       var doc = win.document;
       var sel = win.getSelection ? win.getSelection() : doc.selection;

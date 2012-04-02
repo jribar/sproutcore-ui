@@ -158,7 +158,7 @@ SCUI.DrawingView = SC.View.extend({
     //console.log('%@.render()'.fmt(this));
     var frame = this.get('frame');
     if (firstTime) {
-      if (!SC.browser.msie) {
+      if (!SC.browser.isIE) {
         context.push('<canvas class="base-layer" width="%@" height="%@"></canvas>'.fmt(frame.width, frame.height));
       }
     }
@@ -219,7 +219,7 @@ SCUI.DrawingView = SC.View.extend({
   },
   
   didCreateLayer: function(){
-    if (SC.browser.msie) {
+    if (SC.browser.isIE) {
       var frame = this.get('frame');
       var canvas = document.createElement('CANVAS');
       canvas.className = 'base-layer';
