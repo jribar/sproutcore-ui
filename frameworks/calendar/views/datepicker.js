@@ -13,10 +13,10 @@
   @since 0.1
 */
 
-SCUI.DatePickerView = SC.View.extend(  
+SCUI.DatePickerView = SC.View.extend(
 /** @scope SCUI.DatePickerView.prototype */ {
   classNames: ['scui-datepicker-view'],
-  
+
   // Necessary Elements
   date: null,
   dateString: "",
@@ -26,42 +26,34 @@ SCUI.DatePickerView = SC.View.extend(
   dateFormat: null,
   calendarLayout: null,
   hasHelperButtons: YES,
-  
+
   isEditing: NO,
-  
-  /** 
+
+  /**
     The isTextFieldEnabled property determines if the textfield view is enabled
-    
+
     @property {Boolean}
   */
   isTextFieldEnabled: YES,
-  
+
   // @private
   _textfield: null,
   _date_button: null,
   _calendar_popup: null,
   _calendar: null,
-  _layout: {width: 195, height: 25},
-  
+
   // display properties that should automatically cause a refresh.
   displayProperties: ['date', 'isEditing'],
-  
-  init: function(){
-    sc_super();
-    
-    // Setup default layout values
-    var layout = this.get('layout'), that = this;
-    layout = SC.merge(this._layout, layout);
-    this.set('layout', layout);
-  },
-  
+
+
+
   createChildViews: function(){
     var view, childViews = [];
     var that = this;
-    
+
     // init the dateString to whatever date we're starting with (if present)
     this.set('dateString', this._genDateString(this.get('date')));
-    
+
     var textFieldDesign = {
       layout: {left: 0, top: 0, right: 0, bottom: 0},
       classNames: ['scui-datechooser-text'],
@@ -73,22 +65,22 @@ SCUI.DatePickerView = SC.View.extend(
         sc_super();
       }
     };
-    
+
     if (this.get('isTextFieldEnabled')) {
       textFieldDesign.isEnabledBinding = SC.binding('isEnabled', that);
     } else {
       textFieldDesign.isEnabled = NO;
     }
-    
+
     // First, Build the Textfield for the date chooser
-    view = this._textfield = this.createChildView( 
+    view = this._textfield = this.createChildView(
       SC.TextFieldView.design(textFieldDesign)
     );
     childViews.push(view);
     this.bind('isEditing', SC.Binding.from('isEditing', view).oneWay());
-        
+
     // Now, set up the button to launch the Calendar Datepicker
-    view = this._date_button = this.createChildView( 
+    view = this._date_button = this.createChildView(
       SC.View.design( SCUI.SimpleButton, {
         classNames: ['scui-datechooser-button', 'calendar-icon'],
         layout: {right: 5, top: 4, width: 16, height: 16},
@@ -98,12 +90,12 @@ SCUI.DatePickerView = SC.View.extend(
       })
     );
     childViews.push(view);
-    
+
     this.set('childViews', childViews);
     this._createCalendarPopup();
     sc_super();
   },
-  
+
   _createCalendarPopup: function(){
     var that = this,
         cl = this.get('calendarLayout'),
@@ -141,24 +133,24 @@ SCUI.DatePickerView = SC.View.extend(
             if (firstTime) {
               context.push('None');
             }
-          }       
+          }
         })
       })
     });
-    
+
     // Setup the Binding to the SelectedDate
     if (this._calendar_popup) {
       this.bind('isShowingCalendar', '._calendar_popup.isPaneAttached');
       this._calendar = this._calendar_popup.getPath('contentView.calendar');
     }
   },
-  
+
   render: function(context, firstTime) {
     sc_super();
     context.setClass('focus', this.get('isEditing'));
   },
 
-  /**  
+  /**
     Hides the attached menu if present.  This is called automatically when
     the button gets toggled off.
   */
@@ -180,7 +172,7 @@ SCUI.DatePickerView = SC.View.extend(
       this.set('isShowingCalendar', YES);
     }
   },
-  
+
   toggle: function(){
     if (this.isShowingCalendar){
       this.hideCalendar();
@@ -189,17 +181,17 @@ SCUI.DatePickerView = SC.View.extend(
       this.showCalendar();
     }
   },
-  
+
   selectToday: function(){
     this._calendar.set('selectedDate', SC.DateTime.create());
     this.hideCalendar();
   },
-  
+
   clearSelection: function(){
     this._calendar.set('selectedDate', null);
     this.hideCalendar();
   },
-  
+
   /**
     Standard way to generate the date string
   */
@@ -208,7 +200,7 @@ SCUI.DatePickerView = SC.View.extend(
     var dateString = date ? date.toFormattedString(fmt) : "";
     return dateString;
   },
-  
+
   _dateDidChange: function(){
     this.set('dateString', this._genDateString(this.get('date')));
     this.hideCalendar();
