@@ -53,6 +53,10 @@
 
 .scui-calendar .previous {
   left: 10px;
+
+  &.year {
+    display: none;
+  }
 }
 
 .scui-calendar .previous.active {
@@ -62,6 +66,10 @@
 .scui-calendar .next {
   right: 10px;
   background-position: -9px 0;
+
+  &.year {
+    display: none;
+  }
 }
 
 .scui-calendar .active {
