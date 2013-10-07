@@ -7,7 +7,7 @@
   @author Jonathan Lewis
 */
 
-SCUI.MissingWidgetView = SC.View.extend( SC.Border, {
+SCUI.MissingWidgetView = SC.View.extend({
   
   // PUBLIC PROPERTIES
 
