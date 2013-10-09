@@ -90,12 +90,12 @@ SCUI.DisclosedView = SC.View.extend({
       render: function(context, firstTime){
           context = context.begin('div').addClass('disclosure-inner');
           context = context.begin('div').addClass('disclosure-label');
-          context = context.begin('img').attr({ src: SC.BLANK_IMAGE_URL, alt: "" }).addClass('button').end();
-          context = context.begin('img').attr({ src: SC.BLANK_IMAGE_URL, alt: "" }).addClass('icon').addClass(this.iconCSSName).end();
-          context = context.begin('img').attr({src: SC.BLANK_IMAGE_URL, alt: ""}).addClass('status').addClass(this.statusIconName).end();
+          context = context.begin('img').setAttr({ src: SC.BLANK_IMAGE_URL, alt: "" }).addClass('button').end();
+          context = context.begin('img').setAttr({ src: SC.BLANK_IMAGE_URL, alt: "" }).addClass('icon').addClass(this.iconCSSName).end();
+          context = context.begin('img').setAttr({src: SC.BLANK_IMAGE_URL, alt: ""}).addClass('status').addClass(this.statusIconName).end();
           context = context.begin('span').addClass('title').push(this.get('displayTitle')).end();
-          context.attr('title', this.description);
-          context.attr('alt', this.description);
+          context.setAttr('title', this.description);
+          context.setAttr('alt', this.description);
           context = context.end();
           context = context.end();
       },

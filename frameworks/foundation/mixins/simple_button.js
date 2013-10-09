@@ -163,8 +163,8 @@ SCUI.SimpleButton = {
     }
     if (SC.typeOf(toolTip) === SC.T_STRING) {
       if (this.get('localize')) toolTip = toolTip.loc();
-      context.attr('title', toolTip);
-      context.attr('alt', toolTip);
+      context.setAttr('title', toolTip);
+      context.setAttr('alt', toolTip);
     }
   },  
   

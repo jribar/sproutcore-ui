@@ -27,7 +27,7 @@ SCUI.SelectFieldView = SC.SelectFieldView.extend({
 
       if (multiple) 
       {
-        context.attr('multiple', NO);
+        context.setAttr('multiple', NO);
       }
       
       if (!valueKey && fieldValue) 

@@ -43,7 +43,7 @@ SCUI.ToolTip = {
       };
     }
 
-    context = context.attr(attr);
+    context = context.setAttr(attr);
   }
 };
 
