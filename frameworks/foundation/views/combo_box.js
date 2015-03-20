@@ -479,7 +479,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
   },
 
   toggleList: function() {
-    if (this._listPane && this._listPane.get('isPaneAttached')) {
+    if (this._listPane && this._listPane.get('isAttached')) {
       this.hideList();
     }
     else {
@@ -489,7 +489,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
 
   // Show the drop down list if not already visible.
   showList: function() {
-    if (this._listPane && !this._listPane.get('isPaneAttached')) {
+    if (this._listPane && !this._listPane.get('isAttached')) {
       this.beginEditing();
 
       this._updateListPaneLayout();
@@ -499,7 +499,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
 
   // Hide the drop down list if visible.
   hideList: function() {
-    if (this._listPane && this._listPane.get('isPaneAttached')) {
+    if (this._listPane && this._listPane.get('isAttached')) {
       this._listPane.remove();
     }
   },
@@ -570,7 +570,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
   // Send this event to the drop down list
   moveDown: function(evt) {
     if (this._listPane && this._listView) {
-      if (this._listPane.get('isPaneAttached')) {
+      if (this._listPane.get('isAttached')) {
         this._listView.moveDown(evt);
       }
       else {
@@ -583,7 +583,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
   // Send this event to the drop down list
   moveUp: function(evt) {
     if (this._listPane && this._listView) {
-      if (this._listPane.get('isPaneAttached')) {
+      if (this._listPane.get('isAttached')) {
         this._listView.moveUp(evt);
       }
       else {
@@ -596,7 +596,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
   // Send this event to the drop down list to trigger
   // the default action on the selection.
   insertNewline: function(evt) {
-    if (this._listPane && this._listPane.get('isPaneAttached')) {
+    if (this._listPane && this._listPane.get('isAttached')) {
       return this._listView.insertNewline(evt); // invokes default action on ListView, same as double-click
     }
     return NO;
@@ -606,7 +606,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
     var ret = NO;
 
     // If the drop-down list is open, make a tab event be an 'accept' event
-    if (this._listPane && this._listPane.get('isPaneAttached')) {
+    if (this._listPane && this._listPane.get('isAttached')) {
       this.invokeOnce('_selectListItem'); // same action that a 'newline' event eventually triggers
       ret = YES; // absorb the event
     }
@@ -616,7 +616,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
 
   // escape key handler
   cancel: function(evt) {
-    if (this._listPane && this._listPane.get('isPaneAttached')) {
+    if (this._listPane && this._listPane.get('isAttached')) {
       this.hideList();
     }
     return NO; // don't absorb it; let the text field have fun with this one
@@ -669,7 +669,7 @@ SCUI.ComboBoxView = SC.View.extend( SC.Control, SC.Editable, {
     var selection = this.getPath('_listSelection.firstObject');
     var name;
     
-    if (selection && this._listPane && this._listPane.get('isPaneAttached')) {
+    if (selection && this._listPane && this._listPane.get('isAttached')) {
       name = this._getObjectName(selection, this.get('nameKey'), this.get('localize'));
       this.setPathIfChanged('textFieldView.value', name);
       this._setIcon(this._getObjectIcon(selection, this.get('iconKey')));

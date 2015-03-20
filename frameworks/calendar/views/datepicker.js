@@ -140,7 +140,7 @@ SCUI.DatePickerView = SC.View.extend(
 
     // Setup the Binding to the SelectedDate
     if (this._calendar_popup) {
-      this.bind('isShowingCalendar', '._calendar_popup.isPaneAttached');
+      this.bind('isShowingCalendar', '._calendar_popup.isAttached');
       this._calendar = this._calendar_popup.getPath('contentView.calendar');
     }
   },

@@ -52,7 +52,7 @@ SCUI.DropDown = {
       this._dropDownPane = dropDown.create();
       this.set('dropDown', this._dropDownPane); // set as pointer to instance for convenience
       if (this._dropDownPane) {
-        this.bind('isShowingDropDown', '._dropDownPane.isPaneAttached');
+        this.bind('isShowingDropDown', '._dropDownPane.isAttached');
       }
     }
 
